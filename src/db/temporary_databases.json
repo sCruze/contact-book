@@ -1,0 +1,39 @@
+{
+  "Contact_information": [
+    {
+      "id": 1,
+      "name": "Королев С.А.",
+      "phone": "89009818872",
+      "email": "s.cruze99@yandex.ru",
+      "birthday": "22.08.96"
+    },
+    {
+      "id": 2,
+      "name": "Герасимов В.И.",
+      "phone": "89987600981",
+      "email": "gera33@mail.ru",
+      "birthday": "09.05.92"
+    },
+    {
+      "id": 3,
+      "name": "Кузнецов А.Р.",
+      "phone": "89987908771",
+      "email": "kuznecov@yandex.ru",
+      "birthday": "03.01.94"
+    },
+    {
+      "id": 4,
+      "name": "Дикоева В.О.",
+      "phone": "89987600981",
+      "email": "pochtame@mail.ru",
+      "birthday": "21.08.00"
+    },
+    {
+      "id": 5,
+      "name": "Новикова О.И.",
+      "phone": "89987600981",
+      "email": "novik@gmail.com",
+      "birthday": "02.09.99"
+    }
+  ]
+}
