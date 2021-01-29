@@ -9,28 +9,41 @@
       </div>
     </div>
     <h1>Книга контактов</h1>
-    <p>Количесто записей: {{countContact}}</p>
+    <p>Количесто записей: {{ countContact }}</p>
     <ul v-for="contacts in allContacts" :key="contacts.email">
       <li>
-        <router-link :to="{ path: `info/${contacts.id}` }">{{ contacts.name }}</router-link>
+        <router-link :to="{ path: `info/${contacts.id}` }">{{
+          contacts.name
+        }}</router-link>
         <div class="tools-btn">
-          <router-link :to="{ path: `info/${contacts.id}` }">Открыть</router-link>
-          <svg @click="removeContactOnId(contacts.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+          <router-link :to="{ path: `info/${contacts.id}` }"
+            >Открыть</router-link
+          >
+          <svg
+            @click="removeContactOnId(contacts.id)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-trash-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+            />
           </svg>
         </div>
       </li>
     </ul>
 
-<!--  Форма для добовления контактов  -->
+    <!--  Форма для добовления контактов  -->
     <FormAddContact />
-
   </div>
 </template>
 
 <script>
 // Импортируем нужные методы из store
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from "vuex";
 // Импорт компонента формы для добовления контакта
 import FormAddContact from "@/components/ForBookContact/FormAddContact";
 
@@ -38,63 +51,60 @@ export default {
   name: "ContactBook",
   data: () => ({
     // Локальная переменная в которую будем записывать имя контакта который хотим удалить
-    nameContact: '',
-    idContactForDelete: null,
-
+    nameContact: "",
+    idContactForDelete: null
   }),
   computed: {
     // Вычесляем геттерсы
-    ...mapGetters(['allContacts', 'countContact'])
+    ...mapGetters(["allContacts", "countContact"])
   },
   methods: {
     // Вызвали экшены из стора, чтобы стор начал свою работу
-    ...mapActions(['fetchContact']),
+    ...mapActions(["fetchContact"]),
     // Вызов мутации
-    ...mapMutations(['removeContact', 'stepBack']),
+    ...mapMutations(["removeContact", "stepBack"]),
 
     // Удаление контакта
     removeContactOnId(id) {
       // Передаем в переменную имя того контакта, который хотим удалить
-      this.nameContact = this.allContacts[id].name
+      this.nameContact = this.allContacts[id].name;
 
       // Передаем в локальную переменную id пользователя
-      this.idContactForDelete = id
+      this.idContactForDelete = id;
 
       // Переменная с путем к модальному окну
-      const modalWindow = document.querySelector('.modal-window')
+      const modalWindow = document.querySelector(".modal-window");
 
       // Добовляем новый класс active-modal к модальному окну
-      modalWindow.classList.add('active-modal')
-
+      modalWindow.classList.add("active-modal");
     },
     // Метод подтверждения удаления контакта
     confirmationRemoveField() {
       // Переменная с путем к модальному окну
-      const modalWindow = document.querySelector('.modal-window')
+      const modalWindow = document.querySelector(".modal-window");
 
       // Удаляем класс active-modal у модального окна
-      modalWindow.classList.remove('active-modal')
+      modalWindow.classList.remove("active-modal");
 
       // Передаем в мутацию удаления пользователя id пользователя
-      this.removeContact(this.idContactForDelete)
-
+      this.removeContact(this.idContactForDelete);
     },
     // Метод отмены удаления контакта
     cancelRemoveField() {
       // Переменная с путем к модальному окну
-      const modalWindow = document.querySelector('.modal-window')
+      const modalWindow = document.querySelector(".modal-window");
 
       // Удаляем класс active-modal у модального окна
-      modalWindow.classList.remove('active-modal')
+      modalWindow.classList.remove("active-modal");
     }
   },
   mounted() {
-    this.fetchContact()
+    this.fetchContact();
   },
   components: {
     FormAddContact
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -107,8 +117,9 @@ export default {
     background: #16b5ea;
     border: 1px solid #b5b5b5;
     border-radius: 10px;
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),
+      0 2px 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -187,19 +198,21 @@ export default {
         padding: 0.2rem 1rem;
         background: #26f900;
         color: #fff;
-        -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),
+          0 2px 10px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),
+          0 2px 10px 0 rgba(0, 0, 0, 0.1);
       }
       svg {
         cursor: pointer;
         fill: #fb0000;
       }
     }
-
   }
   li:hover {
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.2), 0 2px 10px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2),
+      0 2px 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   }
 }
 </style>
